@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Api from './utils/api';
 
-function ReposGrid (props) {
+function RepoGrid (props) {
   return (
     <ul className="popular_list">
-      {props.data.map(function (repo, index) {
+      {props.repos.map(function (repo, index) {
         return (
           <li
             key={repo.name}
@@ -22,6 +22,9 @@ function ReposGrid (props) {
                   alt={'Avatar for ' + repo.owner.login}
                 />
               </li>
+              <li><a href={repo.html_url}>{repo.name}</a></li>
+              <li>@{repo.owner.login}</li>
+              <li>{repo.stargazers_count} stars</li>
             </ul>
           </li>
         )
@@ -51,7 +54,7 @@ function SelectLanguage (props) {
 
 class Popular extends Component {
   constructor (props) {
-    super(props);
+    super();
     this.state = {
       selectedLanguage: 'All',
       repos: null,
@@ -86,12 +89,17 @@ class Popular extends Component {
           selectedLanguage={this.state.selectedLanguage}
           onSelect={this.updateLanguage}
         />
-        <ReposGrid 
-          data={this.state.repos}
-        />
+        {!this.state.repos 
+            ? <p>LOADING!</p>
+            : <RepoGrid repos={this.state.repos} />
+        }
       </div>
     )
   }
+}
+
+RepoGrid.propTypes = {
+  repos: PropTypes.array.isRequired,
 }
 
 SelectLanguage.PropTypes = {
