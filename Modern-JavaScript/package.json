@@ -20,7 +20,7 @@
   "license": "ISC",
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "npm": "^6.5.0",
     "prop-types": "^15.6.2",
     "query-string": "^6.2.0",
